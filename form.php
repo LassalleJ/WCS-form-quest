@@ -42,10 +42,6 @@
       <button  type="submit">Envoyer votre message</button>
     </div>
   </form>
-  <?php 
-   var_dump($_POST);
-   echo($_POST);
-   ?>
   <style>
     main {
       margin:auto;
