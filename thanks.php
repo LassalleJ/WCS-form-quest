@@ -8,9 +8,44 @@
 </head>
 <body>
     <?php
-    echo ('Merci '.$_POST['user_firstname'].' '.$_POST['user_lastname'].' de nous avoir contacté à propos de '. $_POST['subjects'].'.');
-    echo ('<br>');
-    echo ('Un de nos conseillers vous contactera soit à l\'adresse '.$_POST["user_email"].' ou par téléphone au '.$_POST["user_phone"]. ' dans les plus brefs délais pour traiter votre demande : <br><br>'. $_POST["user_message"]);
+
+    $fNameErr=$lNameErr=$emailErr=$phone=$message='';
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["user_firstname"])) {
+            echo ($fNameErr = "Name is required");
+        } else if (empty($_POST["user_lastname"])) {
+            echo ($lNameErr = "Name is required");
+        } else if ((empty($_POST["user_email"]))||(!filter_var($_POST["user_email"], FILTER_VALIDATE_EMAIL))) {
+            echo ($emailErr = "A valid email is required");
+        } else if (empty($_POST["user_phone"])) {
+            echo ($phoneErr = "Phone number is required");
+        } else if (empty($_POST["user_message"])) {
+            echo ($message = "Message is required");
+        } else {
+            $fName = test_input($_POST["user_firstname"]);
+            $email = test_input($_POST["user_email"]);
+            $lName = test_input($_POST["user_lastname"]); 
+            $phone = test_input($_POST["user_phone"]);
+            $message = test_input($_POST["user_message"]);
+            echo ('Merci '.$fName.' '.$lName.' de nous avoir contacté à propos de '. $_POST['subjects'].'.');
+            echo ('<br>');
+            echo ('Un de nos conseillers vous contactera soit à l\'adresse '.$email.' ou par téléphone au '.$phone. 
+    ' dans les plus brefs délais pour traiter votre demande : <br><br>'. $message);
+
+
+         
+        }
+      }
+
+
+    
     ?>
 </body>
 </html>

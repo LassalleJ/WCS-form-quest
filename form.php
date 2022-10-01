@@ -8,22 +8,28 @@
 </head>
 <body>
   <main>
-<form  action="thanks.php"  method='post'>
+    <?php 
+    $fNameErr = $emailErr = $genderErr = $websiteErr = "";
+    $name = $email = $gender = $comment = $website = "";
+    ?>
+  <form method="post" action="thanks.php">
     <div>
       <label  for="prénom">Prénom :</label>
-      <input  type="text"  id="prénom"  name="user_firstname">
+      <input  type="text"  id="prénom"  name="user_firstname" required>
+      <span class="error">* <?php echo $fNameErr;?></span>
+<br><br>
     </div>
     <div>
       <label  for="nom">Nom :</label>
-      <input  type="text"  id="nom"  name="user_lastname">
+      <input  type="text" id="nom"  name="user_lastname" required>
     </div>
     <div>
       <label  for="courriel">Courriel :</label>
-        <input  type="email"  id="courriel"  name="user_email">
+        <input  type="email"  id="courriel"  name="user_email" required>
     </div>
     <div>
       <label  for="phoneNumber">Numéro de téléphone :</label>
-        <input  type="phoneNumber"  id="phoneNumber"  name="user_phone">
+        <input  type="phoneNumber"  id="phoneNumber"  name="user_phone" required>
     </div>
     <div>
       <label for="subject"> Sujet de votre mail :</label>
@@ -36,7 +42,7 @@
     </div>
     <div>
       <label  for="message">Message :</label>
-      <textarea  id="message"  name="user_message"></textarea>
+      <textarea  id="message"  name="user_message" required></textarea>
     </div>
     <div  class="button">
       <button  type="submit">Envoyer votre message</button>
